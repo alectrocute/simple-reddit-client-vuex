@@ -1,70 +1,73 @@
 <template>
   <div
-    v-if="targetUrl"
-    class="top-0 right-0 w-1/2 h-full flex flex-col fixed overflow-y-scroll"
+    class="top-0 right-0 w-1/2 flex flex-col fixed overflow-y-scroll"
     style="height: calc(100vh - 55px); top: 55px"
   >
     <div
       v-if="target.title"
-      class="absolute bottom-0 text-black right-0 text-xl font-serif bg-gray-100 w-full z-50 p-4"
+      class="text-black text-xl font-serif bg-gray-100 w-full z-50 p-4"
     >
       {{ target.title }}
     </div>
-    <div class="w-full flex h-1/2 absolute select-none">
-      <!-- example, using custom adult gif site -->
-      <div v-if="targetUrl && targetUrl.includes('redgifs.com')">
-        <iframe
-          :src="targetUrl.replace('watch', 'ifr')"
-          frameborder="0"
-          scrolling="no"
-          allowfullscreen
-          style="width: 50vw; height: 75vh"
-        ></iframe>
-      </div>
 
-      <!-- for typical gifv, like imgur -->
-      <div v-else-if="targetUrl && targetUrl.includes('.gifv')">
-        <video
-          muted
-          autoplay
-          loop
-          :src="targetUrl.replace('.gifv', '.mp4')"
-          style="width: 50vw; height: 75vh;"
-        ></video>
-      </div>
+    <div class="w-full relative flex select-none" style="height: 100%">
+      <div class="m-auto">
+        <!-- example, using custom adult gif site -->
+        <div v-if="targetUrl && targetUrl.includes('redgifs.com')">
+          <iframe
+            :src="targetUrl.replace('watch', 'ifr')"
+            frameborder="0"
+            scrolling="no"
+            allowfullscreen
+            style="width: 100%"
+          ></iframe>
+        </div>
 
-      <!-- for typical mp4 (rare) -->
-      <div v-else-if="targetUrl && targetUrl.includes('.mp4')">
-        <video
-          muted
-          autoplay
-          loop
+        <!-- for typical gifv, like imgur -->
+        <div v-else-if="targetUrl && targetUrl.includes('.gifv')">
+          <video
+            muted
+            autoplay
+            loop
+            :src="targetUrl.replace('.gifv', '.mp4')"
+            style="width: 100%;"
+          ></video>
+        </div>
+
+        <!-- for typical mp4 (rare) -->
+        <div v-else-if="targetUrl && targetUrl.includes('.mp4')">
+          <video
+            muted
+            autoplay
+            loop
+            :src="targetUrl"
+            style="width: 100%"
+          ></video>
+        </div>
+
+        <!-- for typical image -->
+        <v-lazy-image
+          v-else-if="targetUrl"
+          style="width: 100%"
           :src="targetUrl"
-          style="width: 50vw; height: 75vh;"
-        ></video>
+          :src-placeholder="target.thumbnail"
+          @load="
+            () => {
+              this.loaded = true;
+            }
+          "
+          @error="
+            () => {
+              this.loaded = false;
+              this.$Progress.fail();
+            }
+          "
+        />
       </div>
-
-      <!-- for typical image -->
-      <v-lazy-image
-        v-else-if="targetUrl"
-        class="object-cover absolute"
-        :src="targetUrl"
-        :src-placeholder="target.thumbnail"
-        @load="
-          () => {
-            this.loaded = true;
-          }
-        "
-        @error="
-          () => {
-            this.loaded = false;
-            this.$Progress.fail();
-          }
-        "
-      />
     </div>
-    <div class="flex flex-col">
-      <div class="p-3 z-50 text-white flex justify-between">
+
+    <div class="relative flex flex-col w-full h-full">
+      <div class="w-full h-auto pt-1 pr-1 z-50 text-white flex justify-between">
         <a
           class="opacity-25 p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
         >
@@ -91,6 +94,7 @@
           </svg>
         </a>
       </div>
+      <!-- <div class="w-full block bg-black h-20"></div> -->
     </div>
   </div>
 </template>
