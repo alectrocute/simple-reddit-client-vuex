@@ -4,7 +4,7 @@
       <router-link
         class="my-auto text-lg"
         :to="`/${$route.params.pathMatch}`"
-        >{{ $route.params.pathMatch || $store.state.defaultSub }}</router-link
+        >/r/{{ $route.params.pathMatch || $store.state.defaultSub }}</router-link
       >
       <div class="my-auto ml-2 text-lg" v-if="$store.state.loading">
         ...

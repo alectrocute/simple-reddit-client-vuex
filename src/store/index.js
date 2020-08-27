@@ -10,7 +10,8 @@ export default new Vuex.Store({
     loading: false,
     limit: 80,
     type: "top",
-    defaultSub: "pics"
+    defaultSub: "pics",
+    target: {}
   },
   mutations: {
     SET_LISTING(state, listing) {
@@ -18,6 +19,10 @@ export default new Vuex.Store({
     },
     SET_LOADING(state, loading) {
       state.loading = loading;
+    },
+    SET_TARGET(state, target) {
+      state.target = {};
+      state.target = target;
     }
   },
   actions: {

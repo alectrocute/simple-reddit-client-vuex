@@ -21,7 +21,8 @@ var _default = new _vuex["default"].Store({
     loading: false,
     limit: 80,
     type: "top",
-    defaultSub: "pics"
+    defaultSub: "pics",
+    target: {}
   },
   mutations: {
     SET_LISTING: function SET_LISTING(state, listing) {
@@ -29,6 +30,10 @@ var _default = new _vuex["default"].Store({
     },
     SET_LOADING: function SET_LOADING(state, loading) {
       state.loading = loading;
+    },
+    SET_TARGET: function SET_TARGET(state, target) {
+      state.target = {};
+      state.target = target;
     }
   },
   actions: {

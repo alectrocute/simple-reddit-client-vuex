@@ -1,21 +1,31 @@
 <template>
-  <div v-if="!$store.state.loading" class="w-full mt-2">
-    <Item
-      v-for="(item, i) in $store.state.listing.children"
-      :key="'item-card-' + i"
-      :data="item.data"
-    />
+  <div
+    v-if="!$store.state.loading"
+    class="w-full flex justify-between overflow-x-hidden"
+  >
+    <div class="w-1/2 pr-2">
+      <Item
+        v-for="(item, i) in $store.state.listing.children"
+        :key="'item-card-' + i"
+        :data="item.data"
+        :class="
+          $store.state.target == item.data ? 'bg-yellow-100 hover:bg-yellow-100 border border-yellow-300' : ''
+        "
+      />
+    </div>
+    <Target />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Item from "@/components/Item.vue";
-
+import Target from "@/components/Target.vue";
 export default {
   name: "Home",
   components: {
-    Item
+    Item,
+    Target
   },
   watch: {
     "$route.params.pathMatch": {
