@@ -1,6 +1,9 @@
 <template>
   <div id="app" class="px-3 w-full mx-auto bg-gray-100">
-    <div class="w-full h-12 flex justify-start overflow-y-scroll">
+    <div
+      class="h-12 flex justify-start overflow-y-scroll"
+      style="width: 100%; z-index: 999999 !important"
+    >
       <router-link
         class="my-auto text-sm border border-gray-200 bg-gray-100 opacity-50 rounded p-2"
         :to="`/${$route.params.pathMatch}`"
@@ -17,13 +20,6 @@
       >
         /r/{{ fav }}
       </p>
-
-      <div
-        class="my-auto ml-4 opacity-25 text-sm my-auto"
-        v-if="$store.state.loading"
-      >
-        Fetching manifest...
-      </div>
     </div>
     <router-view />
     <vue-progress-bar></vue-progress-bar>

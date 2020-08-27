@@ -2,7 +2,7 @@
   <div
     v-if="targetUrl"
     class="top-0 right-0 w-1/2 h-full flex flex-col fixed overflow-y-scroll"
-    style="height: 100%"
+    style="height: calc(100vh - 55px); top: 55px"
   >
     <div
       v-if="target.title"

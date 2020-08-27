@@ -4,21 +4,25 @@
     v-if="ready"
     class="hover:bg-gray-300 select-none cursor-pointer item flex justify-start bg-gray-200 border border-gray-300 text-gray-900 my-2 h-24"
   >
-    <div class="flex flex-col text-xs flex-none my-auto mr-4">
+    <div class="flex flex-col text-xs flex-none my-auto mr-4 w-10">
       <span>{{ upvotes }}</span>
       <span class="opacity-50">{{ liked_percentage }}</span>
     </div>
-    <a :href="data.url" target="_blank">
+    <a
+      :href="data.url"
+      target="_blank"
+      class="my-auto w-16 h-16 rounded-lg overflow-hidden flex-none"
+    >
       <img
-        class="rounded w-12 h-auto hover:border border-gray-400 cursor-pointer hover:opacity-75"
-        v-if="!data.is_self"
+        class="object-cover h-full bg-gray-300"
+        v-if="!data.is_self && data.thumbnail !== 'default'"
         :src="data.thumbnail"
       />
+      <div v-else class="w-full h-full bg-gray-300 object-cover"></div>
     </a>
-    <div class="flex flex-col ml-4 my-auto">
-      <p class="relative text-md truncate w-auto">
-        {{ data.title.slice(0, data.title.length > 50 ? 50 : data.title.length)
-        }}{{ data.title.length > 50 ? "..." : "" }}
+    <div class="relative overflow-hidden flex flex-col ml-4 my-auto w-full">
+      <p class="text-md truncate w-full">
+        {{ data.title }}
       </p>
       <div class="w-full flex mt-1 overflow-hidden">
         <img
