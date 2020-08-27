@@ -9,8 +9,9 @@ export default new Vuex.Store({
     listing: {},
     loading: false,
     limit: 80,
-    type: "top",
+    type: "hot",
     defaultSub: "pics",
+    favoriteSubs: ["pics", "earthporn", "wallpapers"],
 
     target: {},
     targetId: 0
@@ -37,9 +38,11 @@ export default new Vuex.Store({
           state.state.listing.children[state.state.targetId + factor].data;
         state.commit("SET_TARGET", obj);
         state.commit("SET_TARGET_ID", state.state.targetId + factor);
+        return true;
       } catch (e) {
         state.commit("SET_TARGET", {});
         state.commit("SET_TARGET_ID", 0);
+        return false;
       }
     },
     async getListing(state, l) {

@@ -59,19 +59,37 @@ export default {
         });
     },
     keydownListener(k) {
-      this.$Progress.start();
-      if (k.key == "ArrowLeft") this.$store.dispatch("bumpTargetIndex", -1);
-      if (k.key == "ArrowRight") this.$store.dispatch("bumpTargetIndex", 1);
-      try {
-        document
-          .getElementById("item-card-" + this.$store.state.targetId)
-          .scrollIntoView({
-            block: "center"
-          });
-      } catch (e) {
-        return;
+      if (k.key == "ArrowLeft") {
+        this.$Progress.start();
+        this.$store.dispatch("bumpTargetIndex", -1);
+        try {
+          document
+            .getElementById("item-card-" + this.$store.state.targetId)
+            .scrollIntoView({
+              block: "nearest"
+            });
+        } catch (e) {
+          return;
+        }
+
+        this.$Progress.finish();
       }
-      this.$Progress.finish();
+
+      if (k.key == "ArrowRight") {
+        this.$Progress.start();
+        this.$store.dispatch("bumpTargetIndex", 1);
+        try {
+          document
+            .getElementById("item-card-" + this.$store.state.targetId)
+            .scrollIntoView({
+              block: "nearest"
+            });
+        } catch (e) {
+          return;
+        }
+
+        this.$Progress.finish();
+      }
     },
     registerKeydownListeners() {
       document.addEventListener("keydown", this.keydownListener);

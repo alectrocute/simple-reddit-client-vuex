@@ -5,8 +5,42 @@
     style="height: 100%"
   >
     <div class="w-full flex h-1/2 absolute">
+      <!-- example, using custom adult gif site -->
+      <div v-if="targetUrl && targetUrl.includes('redgifs.com')">
+        <iframe
+          :src="targetUrl.replace('watch', 'ifr')"
+          frameborder="0"
+          scrolling="no"
+          allowfullscreen
+          style="width: 50vw; height: 75vh"
+        ></iframe>
+      </div>
+
+      <!-- for typical gifv, like imgur -->
+      <div v-else-if="targetUrl && targetUrl.includes('.gifv')">
+        <video
+          muted
+          autoplay
+          loop
+          :src="targetUrl.replace('.gifv', '.mp4')"
+          style="width: 50vw; height: 75vh;"
+        ></video>
+      </div>
+
+      <!-- for typical mp4 (rare) -->
+      <div v-else-if="targetUrl && targetUrl.includes('.mp4')">
+        <video
+          muted
+          autoplay
+          loop
+          :src="targetUrl"
+          style="width: 50vw; height: 75vh;"
+        ></video>
+      </div>
+
+      <!-- for typical image -->
       <v-lazy-image
-        v-if="targetUrl && target.thumbnail"
+        v-else-if="targetUrl"
         class="object-cover absolute"
         :src="targetUrl"
         :src-placeholder="target.thumbnail"
@@ -18,6 +52,7 @@
         @error="
           () => {
             this.loaded = false;
+            this.$Progress.fail();
           }
         "
       />

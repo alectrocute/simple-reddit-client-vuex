@@ -20,8 +20,9 @@ var _default = new _vuex["default"].Store({
     listing: {},
     loading: false,
     limit: 80,
-    type: "top",
+    type: "hot",
     defaultSub: "pics",
+    favoriteSubs: ["pics", "earthporn", "wallpapers"],
     target: {},
     targetId: 0
   },
@@ -50,22 +51,25 @@ var _default = new _vuex["default"].Store({
           switch (_context.prev = _context.next) {
             case 0:
               factor = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
+              _context.prev = 1;
+              obj = state.state.listing.children[state.state.targetId + factor].data;
+              state.commit("SET_TARGET", obj);
+              state.commit("SET_TARGET_ID", state.state.targetId + factor);
+              return _context.abrupt("return", true);
 
-              try {
-                obj = state.state.listing.children[state.state.targetId + factor].data;
-                state.commit("SET_TARGET", obj);
-                state.commit("SET_TARGET_ID", state.state.targetId + factor);
-              } catch (e) {
-                state.commit("SET_TARGET", {});
-                state.commit("SET_TARGET_ID", 0);
-              }
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              state.commit("SET_TARGET", {});
+              state.commit("SET_TARGET_ID", 0);
+              return _context.abrupt("return", false);
 
-            case 2:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      });
+      }, null, null, [[1, 8]]);
     },
     getListing: function getListing(state, l) {
       var actualPath, res;

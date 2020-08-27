@@ -1,17 +1,28 @@
 <template>
   <div id="app" class="px-3 w-full mx-auto bg-gray-100">
-    <div class="w-full h-12 flex justify-start">
-      <router-link class="my-auto text-lg" :to="`/${$route.params.pathMatch}`"
+    <div class="w-full h-12 flex justify-start overflow-y-scroll">
+      <router-link
+        class="my-auto text-sm border border-gray-200 bg-gray-100 opacity-50 rounded p-2"
+        :to="`/${$route.params.pathMatch}`"
         >/r/{{
           $route.params.pathMatch || $store.state.defaultSub
         }}</router-link
       >
 
+      <p
+        v-for="(fav, f) in $store.state.favoriteSubs"
+        :key="'fav-' + f"
+        class="text-sm border border-gray-300  bg-gray-200 p-2 rounded my-auto ml-2 opacity-75 hover:opacity-50 cursor-pointer"
+        @click="$router.push({ path: '/' + fav })"
+      >
+        /r/{{ fav }}
+      </p>
+
       <div
-        class="my-auto ml-4 opacity-50 text-sm my-auto"
+        class="my-auto ml-4 opacity-25 text-sm my-auto"
         v-if="$store.state.loading"
       >
-        Fetching...
+        Fetching manifest...
       </div>
     </div>
     <router-view />
