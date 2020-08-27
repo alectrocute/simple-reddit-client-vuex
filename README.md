@@ -1,4 +1,4 @@
-# testground
+# simple-reddit-client-vuex
 
 ## Project setup
 ```
