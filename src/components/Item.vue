@@ -8,12 +8,9 @@
       <span>{{ upvotes }}</span>
       <span class="opacity-50">{{ liked_percentage }}</span>
     </div>
-    <a
-      :href="data.url"
-      target="_blank"
-      class="my-auto w-16 h-16 rounded-lg overflow-hidden flex-none"
-    >
-      <img
+    <a class="my-auto w-16 h-16 rounded-lg overflow-hidden flex-none">
+      <v-lazy-image
+        @intersect="renderThumbnail = true"
         class="object-cover h-full bg-gray-300"
         v-if="!data.is_self && data.thumbnail !== 'default'"
         :src="data.thumbnail"
@@ -38,12 +35,18 @@
 </template>
 
 <script>
+import VLazyImage from "v-lazy-image";
+
 export default {
   name: "Item",
   data() {
     return {
-      ready: false
+      ready: false,
+      renderThumbnail: false
     };
+  },
+  components: {
+    VLazyImage
   },
   props: {
     data: Object,
