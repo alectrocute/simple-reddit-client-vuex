@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _vue["default"].config.productionTip = false;
 
 _vue["default"].use(_vueProgressbar["default"], {
-  color: "purple",
+  color: "#BE3CD3",
   failedColor: "red",
   height: "5px"
 });

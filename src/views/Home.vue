@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex justify-between overflow-x-hidden">
-    <div class="w-1/2 pr-4" id="item-container">
+  <div class="w-full flex justify-between overflow-x-hidden px-2">
+    <div class="w-1/2 pr-4 pt-12" id="item-container">
       <Item
         v-for="(item, i) in $store.state.listing.children"
         :key="'item-card-' + i"
@@ -31,6 +31,11 @@ export default {
 
   watch: {
     "$route.params.pathMatch": {
+      handler: function(n, o) {
+        this.getListing();
+      }
+    },
+    "$store.state.type": {
       handler: function(n, o) {
         this.getListing();
       }

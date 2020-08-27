@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     listing: {},
     loading: false,
-    limit: 80,
+    limit: 100,
     type: "hot",
     defaultSub: "pics",
     favoriteSubs: ["pics", "EarthPorn", "wallpapers", "HighQualityGifs"],
@@ -27,8 +27,14 @@ export default new Vuex.Store({
       state.target = {};
       state.target = p;
     },
+    SET_TYPE(state, t) {
+      state.type = t;
+    },
     SET_TARGET_ID(state, id) {
       state.targetId = id;
+    },
+    ADD_FAVORITE(state, f) {
+      state.favoriteSubs.unshift(f);
     }
   },
   actions: {
@@ -47,8 +53,12 @@ export default new Vuex.Store({
     },
     async getListing(state, l) {
       state.commit("SET_LOADING", true);
+      if (state.state.favoriteSubs.indexOf(l) === -1)
+        state.commit("ADD_FAVORITE", l);
+
       let actualPath = `https://www.reddit.com/r/${l}/${state.state.type}.json?limit=${state.state.limit}`;
       const res = await axios.get(actualPath);
+
       state.commit("SET_LISTING", res.data.data);
       state.commit("SET_LOADING", false);
       return true;

@@ -116,7 +116,7 @@ export default {
       handler: function(n, o) {
         this.targetUrl = null;
         this.loaded = false;
-        console.log("[target-url]", n, o);
+        // console.log("[target-url]", n, o);
         if (this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
           this.targetUrl = n;

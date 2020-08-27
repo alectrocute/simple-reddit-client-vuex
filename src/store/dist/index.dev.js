@@ -19,7 +19,7 @@ var _default = new _vuex["default"].Store({
   state: {
     listing: {},
     loading: false,
-    limit: 80,
+    limit: 100,
     type: "hot",
     defaultSub: "pics",
     favoriteSubs: ["pics", "EarthPorn", "wallpapers", "HighQualityGifs"],
@@ -37,8 +37,14 @@ var _default = new _vuex["default"].Store({
       state.target = {};
       state.target = p;
     },
+    SET_TYPE: function SET_TYPE(state, t) {
+      state.type = t;
+    },
     SET_TARGET_ID: function SET_TARGET_ID(state, id) {
       state.targetId = id;
+    },
+    ADD_FAVORITE: function ADD_FAVORITE(state, f) {
+      state.favoriteSubs.unshift(f);
     }
   },
   actions: {
@@ -78,17 +84,18 @@ var _default = new _vuex["default"].Store({
           switch (_context2.prev = _context2.next) {
             case 0:
               state.commit("SET_LOADING", true);
+              if (state.state.favoriteSubs.indexOf(l) === -1) state.commit("ADD_FAVORITE", l);
               actualPath = "https://www.reddit.com/r/".concat(l, "/").concat(state.state.type, ".json?limit=").concat(state.state.limit);
-              _context2.next = 4;
+              _context2.next = 5;
               return regeneratorRuntime.awrap(_axios["default"].get(actualPath));
 
-            case 4:
+            case 5:
               res = _context2.sent;
               state.commit("SET_LISTING", res.data.data);
               state.commit("SET_LOADING", false);
               return _context2.abrupt("return", true);
 
-            case 8:
+            case 9:
             case "end":
               return _context2.stop();
           }
