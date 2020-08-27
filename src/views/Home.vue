@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="!$store.state.loading"
-    class="w-full flex justify-between overflow-x-hidden"
-  >
+  <div class="w-full flex justify-between overflow-x-hidden">
     <div class="w-1/2 pr-4" id="item-container">
       <Item
         v-for="(item, i) in $store.state.listing.children"
@@ -66,7 +63,7 @@ export default {
           document
             .getElementById("item-card-" + this.$store.state.targetId)
             .scrollIntoView({
-              block: "nearest"
+              block: "center"
             });
         } catch (e) {
           return;
@@ -82,7 +79,7 @@ export default {
           document
             .getElementById("item-card-" + this.$store.state.targetId)
             .scrollIntoView({
-              block: "nearest"
+              block: "center"
             });
         } catch (e) {
           return;

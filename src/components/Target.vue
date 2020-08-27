@@ -1,10 +1,16 @@
 <template>
   <div
     v-if="targetUrl"
-    class="select-none top-0 right-0 w-1/2 h-full flex flex-col fixed overflow-y-scroll"
+    class="top-0 right-0 w-1/2 h-full flex flex-col fixed overflow-y-scroll"
     style="height: 100%"
   >
-    <div class="w-full flex h-1/2 absolute">
+    <div
+      v-if="target.title"
+      class="absolute bottom-0 text-black right-0 text-xl font-serif bg-gray-100 w-full z-50 p-4"
+    >
+      {{ target.title }}
+    </div>
+    <div class="w-full flex h-1/2 absolute select-none">
       <!-- example, using custom adult gif site -->
       <div v-if="targetUrl && targetUrl.includes('redgifs.com')">
         <iframe
@@ -57,32 +63,34 @@
         "
       />
     </div>
-    <div class="p-3 z-50 text-white flex justify-between">
-      <a
-        class="opacity-25 p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
-      >
-        <svg viewBox="0 0 20 20" fill="currentColor" class="bookmark w-4 h-4">
-          <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path>
-        </svg>
-      </a>
-      <a
-        :href="targetUrl"
-        target="_blank"
-        class="p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
-      >
-        <svg
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          class="external-link w-4 h-4"
+    <div class="flex flex-col">
+      <div class="p-3 z-50 text-white flex justify-between">
+        <a
+          class="opacity-25 p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
         >
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
-          ></path>
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
-          ></path>
-        </svg>
-      </a>
+          <svg viewBox="0 0 20 20" fill="currentColor" class="bookmark w-4 h-4">
+            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path>
+          </svg>
+        </a>
+        <a
+          :href="targetUrl"
+          target="_blank"
+          class="p-1 hover:bg-black bg-gray-900 rounded border border-gray-800 cursor-pointer"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="external-link w-4 h-4"
+          >
+            <path
+              d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+            ></path>
+            <path
+              d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+            ></path>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -127,10 +135,10 @@ export default {
 
 <style>
 .v-lazy-image {
-  opacity: 0;
-  transition: all 0.1s;
+  transition: all 0.3s ease;
+  filter: blur(8px);
 }
 .v-lazy-image-loaded {
-  opacity: 1;
+  filter: blur(0);
 }
 </style>

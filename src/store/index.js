@@ -11,7 +11,7 @@ export default new Vuex.Store({
     limit: 80,
     type: "hot",
     defaultSub: "pics",
-    favoriteSubs: ["pics", "earthporn", "wallpapers"],
+    favoriteSubs: ["pics", "EarthPorn", "wallpapers", "HighQualityGifs"],
 
     target: {},
     targetId: 0
