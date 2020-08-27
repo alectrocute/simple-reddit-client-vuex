@@ -5,6 +5,14 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+import VueProgressBar from "vue-progressbar";
+
+Vue.use(VueProgressBar, {
+  color: "purple",
+  failedColor: "red",
+  height: "5px"
+});
+
 new Vue({
   router,
   store,

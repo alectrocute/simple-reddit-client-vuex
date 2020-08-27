@@ -8,9 +8,18 @@ var _router = _interopRequireDefault(require("./router"));
 
 var _store = _interopRequireDefault(require("./store"));
 
+var _vueProgressbar = _interopRequireDefault(require("vue-progressbar"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _vue["default"].config.productionTip = false;
+
+_vue["default"].use(_vueProgressbar["default"], {
+  color: "purple",
+  failedColor: "red",
+  height: "5px"
+});
+
 new _vue["default"]({
   router: _router["default"],
   store: _store["default"],

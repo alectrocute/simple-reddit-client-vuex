@@ -2,7 +2,7 @@
   <div
     @click="target"
     v-if="ready"
-    class="hover:bg-gray-300 select-none cursor-pointer item flex justify-start bg-gray-200 border border-gray-300 text-gray-900 my-2"
+    class="hover:bg-gray-300 select-none cursor-pointer item flex justify-start bg-gray-200 border border-gray-300 text-gray-900 my-2 h-24"
   >
     <div class="flex flex-col text-xs flex-none my-auto mr-4">
       <span>{{ upvotes }}</span>
@@ -50,8 +50,10 @@ export default {
   },
   methods: {
     target() {
+      this.$Progress.start();
       this.$store.commit("SET_TARGET", this.data);
       this.$store.commit("SET_TARGET_ID", this.iter);
+      this.$Progress.finish();
     }
   },
   computed: {

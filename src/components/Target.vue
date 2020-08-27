@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="targetUrl"
-    class="right-0 w-1/2 rounded-t h-full flex fixed overflow-y-scroll"
-    style="height: 90%"
+    class="select-none top-0 right-0 w-1/2 h-full flex flex-col fixed overflow-y-scroll"
+    style="height: 100%"
   >
-    <div class="m-auto border border-yellow-200 bg-yellow-100">
+    <div class="w-full flex h-1/2 absolute">
       <v-lazy-image
         v-if="targetUrl && target.thumbnail"
-        class="object-cover rounded-t"
+        class="object-cover absolute"
         :src="targetUrl"
         :src-placeholder="target.thumbnail"
         @load="
@@ -21,9 +21,33 @@
           }
         "
       />
-      <p class="p-2 text-xs text-yellow-900">
-        {{ target.title }}
-      </p>
+    </div>
+    <div class="p-3 z-50 text-white flex justify-between">
+      <a
+        class="opacity-25 p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
+      >
+        <svg viewBox="0 0 20 20" fill="currentColor" class="bookmark w-4 h-4">
+          <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path>
+        </svg>
+      </a>
+      <a
+        :href="targetUrl"
+        target="_blank"
+        class="p-1 hover:bg-black bg-gray-900 rounded border border-gray-800  cursor-pointer"
+      >
+        <svg
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="external-link w-4 h-4"
+        >
+          <path
+            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+          ></path>
+          <path
+            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+          ></path>
+        </svg>
+      </a>
     </div>
   </div>
 </template>
@@ -40,7 +64,8 @@ export default {
   data() {
     return {
       targetUrl: null,
-      loaded: false
+      loaded: false,
+      timeout: null
     };
   },
   watch: {
@@ -49,7 +74,10 @@ export default {
         this.targetUrl = null;
         this.loaded = false;
         console.log("[target-url]", n, o);
-        this.targetUrl = n;
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          this.targetUrl = n;
+        }, 5);
       }
     }
   },
@@ -64,10 +92,10 @@ export default {
 
 <style>
 .v-lazy-image {
-  filter: blur(10px);
-  transition: filter 0.7s;
+  opacity: 0;
+  transition: all 0.1s;
 }
 .v-lazy-image-loaded {
-  filter: blur(0);
+  opacity: 1;
 }
 </style>

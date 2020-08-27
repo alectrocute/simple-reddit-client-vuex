@@ -7,10 +7,14 @@
         }}</router-link
       >
 
-      <div class="my-auto ml-2 text-lg" v-if="$store.state.loading">
+      <div
+        class="my-auto ml-4 opacity-50 text-sm my-auto"
+        v-if="$store.state.loading"
+      >
         Fetching...
       </div>
     </div>
     <router-view />
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>

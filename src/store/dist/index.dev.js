@@ -50,11 +50,17 @@ var _default = new _vuex["default"].Store({
           switch (_context.prev = _context.next) {
             case 0:
               factor = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
-              obj = state.state.listing.children[state.state.targetId + factor].data;
-              state.commit("SET_TARGET", obj);
-              state.commit("SET_TARGET_ID", state.state.targetId + factor);
 
-            case 4:
+              try {
+                obj = state.state.listing.children[state.state.targetId + factor].data;
+                state.commit("SET_TARGET", obj);
+                state.commit("SET_TARGET_ID", state.state.targetId + factor);
+              } catch (e) {
+                state.commit("SET_TARGET", {});
+                state.commit("SET_TARGET_ID", 0);
+              }
+
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -76,8 +82,9 @@ var _default = new _vuex["default"].Store({
               res = _context2.sent;
               state.commit("SET_LISTING", res.data.data);
               state.commit("SET_LOADING", false);
+              return _context2.abrupt("return", true);
 
-            case 7:
+            case 8:
             case "end":
               return _context2.stop();
           }

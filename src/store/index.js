@@ -32,10 +32,15 @@ export default new Vuex.Store({
   },
   actions: {
     async bumpTargetIndex(state, factor = 1) {
-      const obj =
-        state.state.listing.children[state.state.targetId + factor].data;
-      state.commit("SET_TARGET", obj);
-      state.commit("SET_TARGET_ID", state.state.targetId + factor);
+      try {
+        const obj =
+          state.state.listing.children[state.state.targetId + factor].data;
+        state.commit("SET_TARGET", obj);
+        state.commit("SET_TARGET_ID", state.state.targetId + factor);
+      } catch (e) {
+        state.commit("SET_TARGET", {});
+        state.commit("SET_TARGET_ID", 0);
+      }
     },
     async getListing(state, l) {
       state.commit("SET_LOADING", true);
@@ -43,6 +48,7 @@ export default new Vuex.Store({
       const res = await axios.get(actualPath);
       state.commit("SET_LISTING", res.data.data);
       state.commit("SET_LOADING", false);
+      return true;
     }
   },
   modules: {}
