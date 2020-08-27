@@ -11,7 +11,9 @@ export default new Vuex.Store({
     limit: 80,
     type: "top",
     defaultSub: "pics",
-    target: {}
+
+    target: {},
+    targetId: 0
   },
   mutations: {
     SET_LISTING(state, listing) {
@@ -20,12 +22,21 @@ export default new Vuex.Store({
     SET_LOADING(state, loading) {
       state.loading = loading;
     },
-    SET_TARGET(state, target) {
+    SET_TARGET(state, p) {
       state.target = {};
-      state.target = target;
+      state.target = p;
+    },
+    SET_TARGET_ID(state, id) {
+      state.targetId = id;
     }
   },
   actions: {
+    async bumpTargetIndex(state, factor = 1) {
+      const obj =
+        state.state.listing.children[state.state.targetId + factor].data;
+      state.commit("SET_TARGET", obj);
+      state.commit("SET_TARGET_ID", state.state.targetId + factor);
+    },
     async getListing(state, l) {
       state.commit("SET_LOADING", true);
       let actualPath = `https://www.reddit.com/r/${l}/${state.state.type}.json?limit=${state.state.limit}`;

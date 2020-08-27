@@ -53,6 +53,7 @@ export default {
       }
     }
   },
+
   computed: {
     target() {
       return this.$store.state.target ? this.$store.state.target : null;

@@ -8,8 +8,11 @@
         v-for="(item, i) in $store.state.listing.children"
         :key="'item-card-' + i"
         :data="item.data"
+        :iter="i"
         :class="
-          $store.state.target == item.data ? 'bg-yellow-100 hover:bg-yellow-100 border border-yellow-300' : ''
+          $store.state.target == item.data
+            ? 'bg-yellow-100 hover:bg-yellow-100 border border-yellow-300'
+            : ''
         "
       />
     </div>
@@ -42,6 +45,21 @@ export default {
       "getListing",
       this.$route.params.pathMatch || this.$store.state.defaultSub
     );
+    this.registerKeydownListeners();
+  },
+  beforeDestroy() {
+    this.clearKeydownListeners();
+  },
+  methods: {
+    registerKeydownListeners() {
+      document.addEventListener("keydown", k => {
+        if (k.key == "ArrowLeft") this.$store.dispatch("bumpTargetIndex", -1);
+        if (k.key == "ArrowRight") this.$store.dispatch("bumpTargetIndex", 1);
+      });
+    },
+    clearKeydownListeners() {
+      document.removeEventListeners();
+    }
   }
 };
 </script>

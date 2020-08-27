@@ -42,7 +42,8 @@ export default {
     };
   },
   props: {
-    data: Object
+    data: Object,
+    iter: Number
   },
   mounted() {
     this.ready = true;
@@ -50,6 +51,7 @@ export default {
   methods: {
     target() {
       this.$store.commit("SET_TARGET", this.data);
+      this.$store.commit("SET_TARGET_ID", this.iter);
     }
   },
   computed: {
