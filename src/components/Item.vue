@@ -6,11 +6,10 @@
   >
     <div class="flex flex-col text-xs flex-none my-auto mr-4 w-10">
       <span>{{ upvotes }}</span>
-      <span class="opacity-50">{{ liked_percentage }}</span>
+      <span class="opacity-25">{{ liked_percentage }}</span>
     </div>
     <a class="my-auto w-16 h-16 rounded-lg overflow-hidden flex-none">
       <v-lazy-image
-        @intersect="renderThumbnail = true"
         class="object-cover h-full bg-gray-300"
         v-if="!data.is_self && data.thumbnail !== 'default'"
         :src="data.thumbnail"
@@ -41,8 +40,7 @@ export default {
   name: "Item",
   data() {
     return {
-      ready: false,
-      renderThumbnail: false
+      ready: false
     };
   },
   components: {
@@ -69,7 +67,7 @@ export default {
     },
     liked_percentage: function() {
       return this.data && this.data.upvote_ratio
-        ? this.data.upvote_ratio.toString().replace("0.", "") + "%"
+        ? Math.round(this.data.upvote_ratio * 100).toString() + "%"
         : null;
     }
   }
