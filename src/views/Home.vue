@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="!$store.state.loading" class="w-full mt-2">
+    <Item
+      v-for="(item, i) in $store.state.listing.children"
+      :key="'item-card-' + i"
+      :data="item.data"
+    />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Item from "@/components/Item.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
+    Item
+  },
+  watch: {
+    "$route.params.pathMatch": {
+      handler: function(n, o) {
+        this.$store.dispatch(
+          "getListing",
+          this.$route.params.pathMatch || this.$store.state.defaultSub
+        );
+      }
+    }
+  },
+  mounted() {
+    this.$store.dispatch(
+      "getListing",
+      this.$route.params.pathMatch || this.$store.state.defaultSub
+    );
   }
-}
+};
 </script>
