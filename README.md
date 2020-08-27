@@ -1,6 +1,8 @@
 # simple-reddit-client-vuex
 
-![demo](https://github.com/alectrocute/simple-reddit-client-vuex/blob/master/screenshot.png)
+![demo](https://github.com/alectrocute/simple-reddit-client-vuex/blob/master/screenshot-2.png)
+
+https://alec.is/reddit
 
 ## Project setup
 ```
