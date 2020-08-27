@@ -1,5 +1,7 @@
 # simple-reddit-client-vuex
 
+![Screenshot](https://github.com/alectrocute/simple-reddit-client-vuex/blob/master/screenshot.png)
+
 ## Project setup
 ```
 yarn install
